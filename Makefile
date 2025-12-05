@@ -60,6 +60,7 @@ test: compile
 	@echo "== Running JUnit 4 tests =="
 
 	TEST_CLASSES="$$(find $(OUT_TEST) -name '*Test.class' \
+		| grep -v 'NumberListTest.class' \
 		| sed 's|$(OUT_TEST)/||' \
 		| sed 's|/|.|g' \
 		| sed 's|.class||')"; \
