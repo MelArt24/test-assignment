@@ -10,7 +10,13 @@ LIB_DIR := lib
 JUNIT4 := $(LIB_DIR)/junit-4.13.2.jar
 HAMCREST := $(LIB_DIR)/hamcrest-core-1.3.jar
 
-CLASSPATH := $(OUT_MAIN);$(OUT_TEST);$(JUNIT4);$(HAMCREST)
+ifeq ($(OS),Windows_NT)
+  SEP := ;
+else
+  SEP := :
+endif
+
+CLASSPATH := $(OUT_MAIN)$(SEP)$(OUT_TEST)$(SEP)$(JUNIT4)$(SEP)$(HAMCREST)
 
 .PHONY: all clean test compile compile-main compile-test help deps
 
@@ -46,12 +52,12 @@ $(LIB_DIR):
 compile-main:
 	@echo "== Compiling main sources =="
 	mkdir -p $(OUT_MAIN)
-	javac -cp "$(JUNIT4);$(HAMCREST)" -d $(OUT_MAIN) $$(find $(SRC_MAIN) -name "*.java")
+	javac -cp "$(JUNIT4)$(SEP)$(HAMCREST)" -d $(OUT_MAIN) $$(find $(SRC_MAIN) -name "*.java")
 
 compile-test:
 	@echo "== Compiling test sources =="
 	mkdir -p $(OUT_TEST)
-	javac -cp "$(OUT_MAIN);$(JUNIT4);$(HAMCREST)" -d $(OUT_TEST) $$(find $(SRC_TEST) -name "*.java")
+	javac -cp "$(OUT_MAIN)$(SEP)$(JUNIT4)$(SEP)$(HAMCREST)" -d $(OUT_TEST) $$(find $(SRC_TEST) -name "*.java")
 
 	@echo "== Copying test resources =="
 	@if [ -d $(RES_TEST) ]; then cp -r $(RES_TEST)/* $(OUT_TEST)/ 2>/dev/null || true; fi
