@@ -16,11 +16,19 @@ import java.util.ListIterator;
 import ua.kpi.comsys.test2.NumberList;
 
 /**
- * Custom implementation of INumberList interface.
- * Has to be implemented by each student independently.
+ * Custom implementation of NumberList interface.
+ * Represents a positive number where each list element stores a single digit
+ * in the current scale of notation.
  *
- * @author Alexander Podrubailo
+ * <p><b>Personal assignment parameters:</b></p>
+ * <ul>
+ *   <li>C3 = 0 — Linear doubly linked (bidirectional) list</li>
+ *   <li>C5 = 2 — Octal number system</li>
+ *   <li>Additional scale: Decimal number system</li>
+ *   <li>C7 = 5 — Algebraic and logical AND of two numbers</li>
+ * </ul>
  *
+ * @author Melnychenko Artem, IM-34, №12
  */
 public class NumberListImpl implements NumberList {
 
