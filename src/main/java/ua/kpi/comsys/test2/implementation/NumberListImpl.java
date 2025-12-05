@@ -23,10 +23,10 @@ import ua.kpi.comsys.test2.NumberList;
  *
  * <p><b>Personal assignment parameters:</b></p>
  * <ul>
- *   <li>C3 = 0 — Linear doubly linked (bidirectional) list</li>
- *   <li>C5 = 2 — Octal number system</li>
+ *   <li>C3 = 0 - Linear doubly linked (bidirectional) list</li>
+ *   <li>C5 = 2 - Octal number system</li>
  *   <li>Additional scale: Decimal number system</li>
- *   <li>C7 = 5 — Algebraic and logical AND of two numbers</li>
+ *   <li>C7 = 5 - Algebraic and logical AND of two numbers</li>
  * </ul>
  *
  * @author Melnychenko Artem, IM-34, №12
@@ -44,7 +44,7 @@ public class NumberListImpl implements NumberList {
         }
     }
 
-    /** Цикл систем числення, який використовується в тестах. */
+    /** Number system cycle used in tests. */
     private static final int[] BASES = {2, 3, 8, 10, 16};
 
     private final int base;
@@ -54,7 +54,7 @@ public class NumberListImpl implements NumberList {
 
 
     /**
-     * Default constructor. Returns empty <tt>NumberListImpl</tt>
+     * Default constructor. Returns empty {@code NumberListImpl}
      */
     public NumberListImpl() {
         this.base = BASES[getRecordBookNumber() % 5];
@@ -73,7 +73,7 @@ public class NumberListImpl implements NumberList {
 
 
     /**
-     * Constructs new <tt>NumberListImpl</tt> by <b>decimal</b> number
+     * Constructs new {@code NumberListImpl} by <b>decimal</b> number
      * from file, defined in string format.
      *
      * @param file - file where number is stored.
@@ -101,7 +101,7 @@ public class NumberListImpl implements NumberList {
 
 
     /**
-     * Constructs new <tt>NumberListImpl</tt> by <b>decimal</b> number
+     * Constructs new {@code NumberListImpl} by <b>decimal</b> number
      * in string notation.
      *
      * @param value - number in string notation.
@@ -157,12 +157,12 @@ public class NumberListImpl implements NumberList {
 
 
     /**
-     * Returns new <tt>NumberListImpl</tt> which represents the same number
+     * Returns new {@code NumberListImpl} which represents the same number
      * in other scale of notation, defined by personal test assignment.<p>
      *
      * Does not impact the original list.
      *
-     * @return <tt>NumberListImpl</tt> in other scale of notation.
+     * @return {@code NumberListImpl} in other scale of notation.
      */
     public NumberListImpl changeScale() {
         if (isEmpty()) {
@@ -189,7 +189,7 @@ public class NumberListImpl implements NumberList {
 
 
     /**
-     * Returns new <tt>NumberListImpl</tt> which represents the result of
+     * Returns new {@code NumberListImpl} which represents the result of
      * additional operation, defined by personal test assignment.<p>
      *
      * Does not impact the original list.
@@ -236,6 +236,14 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns a string representation of the number stored in this list.
+     * Each node contributes one digit, formatted according to the current base.
+     * Digits 0–9 are represented as characters '0'–'9', while digits more than equals 10
+     * are represented as uppercase letters ('A', 'B', ...).
+     *
+     * @return a string representation of the stored number, or an empty string if the list is empty
+     */
     @Override
     public String toString() {
         if (isEmpty()) {
@@ -256,6 +264,19 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Compares this list with another object for equality.
+     * Two lists are considered equal if:
+     * <ul>
+     *     <li>the other object is a {@code List}</li>
+     *     <li>both lists have the same size</li>
+     *     <li>all corresponding elements are equal by value</li>
+     * </ul>
+     *
+     * @param o the object to compare with
+     * @return {@code true} if both lists contain the same digits in the same order,
+     *         {@code false} otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -272,19 +293,33 @@ public class NumberListImpl implements NumberList {
         return true;
     }
 
-
+    /**
+     * Returns the number of digits stored in the list.
+     *
+     * @return the number of elements in this list
+     */
     @Override
     public int size() {
         return size;
     }
 
-
+    /**
+     * Checks whether the list contains no elements.
+     *
+     * @return {@code true} if the list is empty, {@code false} otherwise
+     */
     @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-
+    /**
+     * Checks whether the list contains the specified digit.
+     * Only {@code Byte} values are supported; all other types return {@code false}.
+     *
+     * @param o the object to check for
+     * @return {@code true} if the list contains the digit, {@code false} otherwise
+     */
     @Override
     public boolean contains(Object o) {
         if (!(o instanceof Byte)) {
@@ -302,6 +337,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns an iterator over the digits stored in this list.
+     * The iterator traverses the list from head to tail.
+     *
+     * @return an iterator over the elements in this list
+     */
     @Override
     public Iterator<Byte> iterator() {
         return new Iterator<Byte>() {
@@ -322,6 +363,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns an array containing all elements of this list.
+     * The returned array is independent of the internal list structure.
+     *
+     * @return an array containing all digits of this list
+     */
     @Override
     public Object[] toArray() {
         Object[] arr = new Object[size];
@@ -335,12 +382,26 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Not supported in this implementation.
+     *
+     * @throws UnsupportedOperationException always thrown because this method is not implemented
+     */
     @Override
     public <T> T[] toArray(T[] a) {
         throw new UnsupportedOperationException("toArray(T[] a) is not implemented");
     }
 
 
+    /**
+     * Appends a new digit to the end of the list.
+     * The digit must be within the valid range for the current base.
+     *
+     * @param e the digit to add
+     * @return {@code true} (as the list is always modified)
+     * @throws NullPointerException if {@code e} is {@code null}
+     * @throws IllegalArgumentException if the digit is outside the current base range
+     */
     @Override
     public boolean add(Byte e) {
         if (e == null) {
@@ -363,6 +424,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Removes the first occurrence of the specified digit from the list.
+     *
+     * @param o the digit to remove
+     * @return {@code true} if an element was removed, {@code false} otherwise
+     */
     @Override
     public boolean remove(Object o) {
         if (!(o instanceof Byte)) {
@@ -380,7 +447,12 @@ public class NumberListImpl implements NumberList {
         return false;
     }
 
-
+    /**
+     * Checks whether the list contains all elements of the specified collection.
+     *
+     * @param c the collection to check
+     * @return {@code true} if all elements are present, {@code false} otherwise
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
         if (c == null) return true;
@@ -391,6 +463,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Adds all digits from the specified collection to the end of this list.
+     *
+     * @param c the collection of digits to add
+     * @return {@code true} if at least one element was added, {@code false} otherwise
+     */
     @Override
     public boolean addAll(Collection<? extends Byte> c) {
         if (c == null || c.isEmpty()) return false;
@@ -403,6 +481,15 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Inserts all digits from the given collection starting at the specified index.
+     *
+     * @param index the position at which to insert
+     * @param c the digits to insert
+     * @return {@code true} if the list was modified, {@code false} otherwise
+     * @throws IndexOutOfBoundsException if the index is out of range
+     * @throws IllegalArgumentException if any digit exceeds the base limits
+     */
     @Override
     public boolean addAll(int index, Collection<? extends Byte> c) {
         if (c == null || c.isEmpty()) return false;
@@ -437,6 +524,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Removes all digits from this list that are present in the given collection.
+     *
+     * @param c the collection containing elements to remove
+     * @return {@code true} if at least one element was removed, {@code false} otherwise
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
         if (c == null || c.isEmpty()) return false;
@@ -456,6 +549,13 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Retains only those digits that are present in the given collection.
+     * All other digits are removed.
+     *
+     * @param c the allowed elements; if {@code null}, the list is cleared
+     * @return {@code true} if the list was modified, {@code false} otherwise
+     */
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) {
@@ -479,6 +579,10 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Removes all elements from the list.
+     * After this operation, the list becomes empty.
+     */
     @Override
     public void clear() {
         Node current = head;
@@ -493,6 +597,13 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns the digit stored at the specified position.
+     *
+     * @param index the index of the element to fetch
+     * @return the digit at the given index
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     @Override
     public Byte get(int index) {
         Node node = nodeAt(index);
@@ -500,6 +611,16 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Replaces the digit at the specified position.
+     *
+     * @param index the index of the element to replace
+     * @param element the new digit
+     * @return the previous value at the given position
+     * @throws IndexOutOfBoundsException if the index is out of range
+     * @throws NullPointerException if {@code element} is {@code null}
+     * @throws IllegalArgumentException if the digit exceeds base constraints
+     */
     @Override
     public Byte set(int index, Byte element) {
         if (element == null) {
@@ -516,6 +637,15 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Inserts a digit at the specified position in the list.
+     *
+     * @param index the index at which to insert
+     * @param element the digit to insert
+     * @throws IndexOutOfBoundsException if the index is out of range
+     * @throws NullPointerException if {@code element} is {@code null}
+     * @throws IllegalArgumentException if the digit exceeds base constraints
+     */
     @Override
     public void add(int index, Byte element) {
         if (index == size) {
@@ -545,6 +675,13 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Removes the digit at the specified index.
+     *
+     * @param index the position of the digit to remove
+     * @return the removed digit
+     * @throws IndexOutOfBoundsException if the index is out of range
+     */
     @Override
     public Byte remove(int index) {
         Node node = nodeAt(index);
@@ -554,6 +691,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns the first index where the specified digit occurs.
+     *
+     * @param o the digit to search for
+     * @return the index of the first occurrence, or {@code -1} if not found
+     */
     @Override
     public int indexOf(Object o) {
         if (!(o instanceof Byte)) return -1;
@@ -569,6 +712,12 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Returns the last index where the specified digit occurs.
+     *
+     * @param o the digit to search for
+     * @return the index of the last occurrence, or {@code -1} if not found
+     */
     @Override
     public int lastIndexOf(Object o) {
         if (!(o instanceof Byte)) return -1;
@@ -602,6 +751,13 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Swaps the digits at the two specified indices.
+     *
+     * @param index1 the first index
+     * @param index2 the second index
+     * @return {@code true} if the swap occurred, {@code false} if indices are invalid
+     */
     @Override
     public boolean swap(int index1, int index2) {
         if (index1 < 0 || index1 >= size || index2 < 0 || index2 >= size) {
@@ -617,6 +773,9 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Sorts the digits of the list in ascending order using selection sort.
+     */
     @Override
     public void sortAscending() {
         if (size < 2) return;
@@ -634,6 +793,9 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Sorts the digits of the list in descending order using selection sort.
+     */
     @Override
     public void sortDescending() {
         if (size < 2) return;
@@ -651,6 +813,11 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Performs a cyclic left shift:
+     * the first element becomes the last.
+     * Does nothing if the list contains fewer than two elements.
+     */
     @Override
     public void shiftLeft() {
         if (size <= 1) return;
@@ -665,6 +832,11 @@ public class NumberListImpl implements NumberList {
     }
 
 
+    /**
+     * Performs a cyclic right shift:
+     * the last element becomes the first.
+     * Does nothing if the list contains fewer than two elements.
+     */
     @Override
     public void shiftRight() {
         if (size <= 1) return;
@@ -680,6 +852,18 @@ public class NumberListImpl implements NumberList {
 
     // ---------- My personal methods-helpers ----------
 
+    /**
+     * Checks whether the given string is a valid non-negative decimal number.
+     * A valid decimal number:
+     * <ul>
+     *   <li>is not {@code null} and not empty,</li>
+     *   <li>does not start with a minus sign,</li>
+     *   <li>contains only characters '0'–'9'.</li>
+     * </ul>
+     *
+     * @param s the string to validate
+     * @return {@code true} if the string is a valid decimal number, {@code false} otherwise
+     */
     private boolean isValidDecimal(String s) {
         if (s == null || s.isEmpty()) return false;
         if (s.charAt(0) == '-') return false;
@@ -728,6 +912,15 @@ public class NumberListImpl implements NumberList {
         return toBigInteger(list, nli.base);
     }
 
+    /**
+     * Converts the given list of digits into a {@link BigInteger} value
+     * using the specified base.
+     * Each element of the list is treated as a single digit in that base.
+     *
+     * @param list the list of digits to convert
+     * @param base the numeric base of the digits
+     * @return the decimal {@link BigInteger} representation of the list
+     */
     private static BigInteger toBigInteger(List<Byte> list, int base) {
         BigInteger res = BigInteger.ZERO;
         BigInteger bBase = BigInteger.valueOf(base);
@@ -738,6 +931,15 @@ public class NumberListImpl implements NumberList {
         return res;
     }
 
+    /**
+     * Returns the node located at the specified index.
+     * The search is optimized: traversal starts from the head or tail
+     * depending on which side is closer to the target index.
+     *
+     * @param index the index of the node to retrieve
+     * @return the node at the specified position
+     * @throws IndexOutOfBoundsException if the index is invalid
+     */
     private Node nodeAt(int index) {
         checkElementIndex(index);
         if (index < (size / 2)) {
@@ -755,6 +957,13 @@ public class NumberListImpl implements NumberList {
         }
     }
 
+    /**
+     * Removes the given node from the doubly linked list.
+     * Adjusts all surrounding {@code prev} and {@code next} references
+     * and decreases the list size.
+     *
+     * @param node the node to remove
+     */
     private void unlink(Node node) {
         Node prev = node.prev;
         Node next = node.next;
@@ -774,18 +983,41 @@ public class NumberListImpl implements NumberList {
         size--;
     }
 
+    /**
+     * Validates that the given index refers to an existing element.
+     * Used for operations such as {@code get}, {@code set}, and {@code remove}.
+     *
+     * @param index the index to check
+     * @throws IndexOutOfBoundsException if the index is not within {@code [0, size-1]}
+     */
     private void checkElementIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", size: " + size);
         }
     }
 
+    /**
+     * Validates that the index refers to a valid insertion position.
+     * Used for operations such as {@code add(index, element)}.
+     *
+     * A valid position index is within {@code [0, size]}.
+     *
+     * @param index the index to validate
+     * @throws IndexOutOfBoundsException if the index is outside allowed bounds
+     */
     private void checkPositionIndex(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", size: " + size);
         }
     }
 
+    /**
+     * Appends a digit to the end of the internal list without performing
+     * any validation on ranges or base compatibility.
+     * This method is intended for internal use when digits are already known to be valid.
+     *
+     * @param digit the digit to append
+     */
     private void addDigitRaw(int digit) {
         Node newNode = new Node((byte) digit);
         if (head == null) {

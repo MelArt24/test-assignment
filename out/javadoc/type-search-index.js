@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ua.kpi.comsys.test2","l":"NumberList"},{"p":"ua.kpi.comsys.test2.implementation","l":"NumberListImpl"}];updateSearchResults();

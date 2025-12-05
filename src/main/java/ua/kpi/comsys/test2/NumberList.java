@@ -29,19 +29,19 @@ public interface NumberList extends List<Byte> {
      *
      * @param index1 - index of first element
      * @param index2 - index of second element
-     * @return <tt>true</tt> if operation was successful, otherwise <tt>false</tt>.
+     * @return {@code true} if operation was successful, otherwise {@code false}.
      */
     boolean swap(int index1, int index2);
 
 
     /**
-     * Sorts elements of the list in ascending order.<
+     * Sorts elements of the list in ascending order.
      */
     void sortAscending();
 
 
     /**
-     * Sorts elements of the list in descending order.<
+     * Sorts elements of the list in descending order.
      */
     void sortDescending();
 
